@@ -1,0 +1,31 @@
+{
+  "name": "user-locale",
+  "version": "0.1.0",
+  "description": "Get the default locale from the user's browser and system",
+  "funding": "https://github.com/mathieuprog/user-locale?sponsor=1",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "vitest"
+  },
+  "author": "Mathieu Decaffmeyer",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@tsconfig/node18": "^1.0.1",
+    "rollup": "^3.3.0",
+    "typescript": "^4.8.4",
+    "vite": "^3.2.3",
+    "vitest": "^0.25.1"
+  },
+  "dependencies": {
+  },
+  "bugs": {
+    "url": "https://github.com/mathieuprog/user-locale/issues"
+  },
+  "homepage": "https://github.com/mathieuprog/user-locale#readme"
+}
