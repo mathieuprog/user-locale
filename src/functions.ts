@@ -59,7 +59,7 @@ export function getDateFormat(locales: string[] = []) {
 }
 
 function doGetDateFormat(dateFormatString: string) {
-  const dateEndianness =
+  const endianness =
     new RegExp('d(.*?)m(.*?)y').test(dateFormatString)
       ? DateEndianness.LittleEndian
       : (
@@ -87,7 +87,7 @@ function doGetDateFormat(dateFormatString: string) {
           )
       );
 
-  return { dateEndianness, separator };
+  return { endianness, separator };
 }
 
 export function getTimeFormat(locales: string[] = []) {

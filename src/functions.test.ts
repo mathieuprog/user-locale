@@ -25,11 +25,11 @@ test('getCountryFromLanguageTag', () => {
 });
 
 test('getDateFormat', () => {
-  expect(getDateFormat(['fr-BE'])).toEqual({ dateEndianness: DateEndianness.LittleEndian, separator: "/" });
-  expect(getDateFormat(['nl-NL'])).toEqual({ dateEndianness: DateEndianness.LittleEndian, separator: "-" });
-  expect(getDateFormat(['en-US'])).toEqual({ dateEndianness: DateEndianness.MiddleEndian, separator: "/" });
-  expect(getDateFormat(['zh-CN'])).toEqual({ dateEndianness: DateEndianness.BigEndian, separator: "/" });
-  expect(getDateFormat(['fi-FI'])).toEqual({ dateEndianness: DateEndianness.LittleEndian, separator: "." });
+  expect(getDateFormat(['fr-BE'])).toEqual({ endianness: DateEndianness.LittleEndian, separator: "/" });
+  expect(getDateFormat(['nl-NL'])).toEqual({ endianness: DateEndianness.LittleEndian, separator: "-" });
+  expect(getDateFormat(['en-US'])).toEqual({ endianness: DateEndianness.MiddleEndian, separator: "/" });
+  expect(getDateFormat(['zh-CN'])).toEqual({ endianness: DateEndianness.BigEndian, separator: "/" });
+  expect(getDateFormat(['fi-FI'])).toEqual({ endianness: DateEndianness.LittleEndian, separator: "." });
 });
 
 test('getTimeFormat', () => {
