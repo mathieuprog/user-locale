@@ -16,7 +16,7 @@ export function doGuessCountry(userTimeZone: string, languageTags: string[]): st
       .map((tag) => getCountryFromLanguageTag(tag))
       .filter((country) => country);
 
-  const intersection = countryIsoCodesFromTimeZone.filter(countryIsoCode => countryIsoCodesFromLanguageTags.includes(countryIsoCode));
+  const intersection = countryIsoCodesFromTimeZone.filter((countryIsoCode) => countryIsoCodesFromLanguageTags.includes(countryIsoCode));
 
   return (intersection.length > 0)
     ? intersection
