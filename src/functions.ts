@@ -1,7 +1,7 @@
 import ColorScheme from './ColorScheme';
 import countryFirstDayOfWeekMap from './data/countryFirstDayOfWeekMap';
 import timeZoneCountryMap from './data/timeZoneCountryMap';
-import DateFormat from './DateFormat';
+import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
 
 export function guessCountry(): string[] {
@@ -59,15 +59,15 @@ export function getDateFormat(locales: string[] = []) {
 }
 
 function doGetDateFormat(dateFormatString: string) {
-  const dateFormat =
+  const dateEndianness =
     new RegExp('d(.*?)m(.*?)y').test(dateFormatString)
-      ? DateFormat.LittleEndian
+      ? DateEndianness.LittleEndian
       : (
         new RegExp('m(.*?)d(.*?)y').test(dateFormatString)
-          ? DateFormat.MiddleEndian
+          ? DateEndianness.MiddleEndian
           : (
             new RegExp('y(.*?)m(.*?)d').test(dateFormatString)
-              ? DateFormat.BigEndian
+              ? DateEndianness.BigEndian
               : (() => { throw new Error(`unknown date format`) })()
           )
       );
@@ -87,7 +87,7 @@ function doGetDateFormat(dateFormatString: string) {
           )
       );
 
-  return { dateFormat, separator };
+  return { dateEndianness, separator };
 }
 
 export function getTimeFormat(locales: string[] = []) {

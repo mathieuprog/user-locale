@@ -7,7 +7,7 @@ import {
   getTimeFormat
 } from './functions';
 import FirstDayOfWeek from './FirstDayOfWeek';
-import DateFormat from './DateFormat';
+import DateEndianness from './DateEndianness';
 
 test('guessCountry', () => {
   expect(doGuessCountry('Europe/Brussels', ['fr', 'fr-BE', 'en'])).toEqual(['BE']);
@@ -25,11 +25,11 @@ test('getCountryFromLanguageTag', () => {
 });
 
 test('getDateFormat', () => {
-  expect(getDateFormat(['fr-BE'])).toEqual({ dateFormat: DateFormat.LittleEndian, separator: "/" });
-  expect(getDateFormat(['nl-NL'])).toEqual({ dateFormat: DateFormat.LittleEndian, separator: "-" });
-  expect(getDateFormat(['en-US'])).toEqual({ dateFormat: DateFormat.MiddleEndian, separator: "/" });
-  expect(getDateFormat(['zh-CN'])).toEqual({ dateFormat: DateFormat.BigEndian, separator: "/" });
-  expect(getDateFormat(['fi-FI'])).toEqual({ dateFormat: DateFormat.LittleEndian, separator: "." });
+  expect(getDateFormat(['fr-BE'])).toEqual({ dateEndianness: DateEndianness.LittleEndian, separator: "/" });
+  expect(getDateFormat(['nl-NL'])).toEqual({ dateEndianness: DateEndianness.LittleEndian, separator: "-" });
+  expect(getDateFormat(['en-US'])).toEqual({ dateEndianness: DateEndianness.MiddleEndian, separator: "/" });
+  expect(getDateFormat(['zh-CN'])).toEqual({ dateEndianness: DateEndianness.BigEndian, separator: "/" });
+  expect(getDateFormat(['fi-FI'])).toEqual({ dateEndianness: DateEndianness.LittleEndian, separator: "." });
 });
 
 test('getTimeFormat', () => {
