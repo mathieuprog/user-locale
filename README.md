@@ -9,7 +9,7 @@ The functions allow to retrieve:
 * the preferred language tags (en-US, en, …);
 * the time zone;
 * the guessed country (from the time zone and preferred language tags);
-* the first day of the week (from the guessed country, or default to Monday);
+* the first day of the week (from the guessed country);
 * the color scheme (as configured in the OS or user agent).
 
 ## Usage
