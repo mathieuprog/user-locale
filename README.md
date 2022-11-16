@@ -19,7 +19,7 @@ The functions allow to retrieve:
 `getDateFormat()` returns the order of the date components and the separator of the components.
 
 ```typescript
-import { DateFormat, getDateFormat } from 'user-locale';
+import { DateEndianness, getDateFormat } from 'user-locale';
 
 getDateFormat()
 ```
@@ -27,12 +27,12 @@ getDateFormat()
 A return value looks like:
 ```typescript
 {
-  dateFormat: DateFormat.LittleEndian,
+  endianness: DateEndianness.LittleEndian,
   separator: '/'
 }
 ```
 
-The `dateFormat` property allows to know in what order the date components are placed:
+The `endianness` property allows to know in what order the date components are placed:
 
 - `BigEndian`: year, month, day
 - `LittleEndian`: day, month, year
