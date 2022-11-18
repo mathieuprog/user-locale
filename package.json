@@ -1,6 +1,6 @@
 {
   "name": "user-locale",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Get the default locale from the user's browser and system",
   "funding": "https://github.com/mathieuprog/user-locale?sponsor=1",
   "source": "src/index.ts",
