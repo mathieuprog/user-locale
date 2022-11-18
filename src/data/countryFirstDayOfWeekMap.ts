@@ -63,7 +63,7 @@ const countryFirstDayOfWeekMap: Record<string, FirstDayOfWeek> = {};
 
 for (const [dayOfWeek, countriesString] of Object.entries(countriesByFirstDayOfWeekData)) {
   const countries = countriesString.split(' ').map((c) => c.trim()).filter((c) => c);
-  countries.forEach((c) => countryFirstDayOfWeekMap[c] = dayOfWeek as FirstDayOfWeek);
+  countries.forEach((c) => countryFirstDayOfWeekMap[c] = Number(dayOfWeek));
 }
 
 export default countryFirstDayOfWeekMap;
