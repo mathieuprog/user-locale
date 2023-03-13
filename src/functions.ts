@@ -4,6 +4,16 @@ import timeZoneCountryMap from './data/timeZoneCountryMap';
 import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
 
+export interface DateFormat {
+  endianness: DateEndianness;
+  separator: string;
+};
+
+export interface TimeFormat {
+  is24HourClock: boolean;
+  separator: string;
+};
+
 export function guessCountry(): string[] {
   return doGuessCountry(getTimeZone(), getPreferredLanguageTags());
 }
@@ -39,7 +49,7 @@ export function getTimeZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
-export function getDateFormat(locales: string[] = []) {
+export function getDateFormat(locales: string[] = []): DateFormat {
   const parts =
     Intl.DateTimeFormat(locales, {
       year: 'numeric', month: 'numeric', day: 'numeric'
@@ -90,7 +100,7 @@ function doGetDateFormat(dateFormatString: string) {
   return { endianness, separator };
 }
 
-export function getTimeFormat(locales: string[] = []) {
+export function getTimeFormat(locales: string[] = []): TimeFormat {
   const parts =
     Intl.DateTimeFormat(locales, {
       hour: 'numeric', minute: 'numeric'

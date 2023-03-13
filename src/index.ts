@@ -2,18 +2,21 @@ import ColorScheme from './ColorScheme';
 import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
 import {
+  DateFormat,
   getDateFormat,
   getFirstDayOfWeek,
   getColorScheme,
   getPreferredLanguageTags,
   getTimeFormat,
   getTimeZone,
-  guessCountry
+  guessCountry,
+  TimeFormat
 } from './functions';
 
 export {
   ColorScheme,
   DateEndianness,
+  DateFormat,
   FirstDayOfWeek,
   getColorScheme,
   getDateFormat,
@@ -21,5 +24,6 @@ export {
   getPreferredLanguageTags,
   getTimeFormat,
   getTimeZone,
-  guessCountry
+  guessCountry,
+  TimeFormat
 }
