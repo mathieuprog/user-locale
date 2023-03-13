@@ -19,14 +19,14 @@ The functions allow to retrieve:
 `getDateFormat()` returns the order of the date components and the separator of the components.
 
 ```typescript
-import { DateEndianness, getDateFormat } from 'user-locale';
+import { DateEndianness, DateFormat, getDateFormat } from 'user-locale';
 
 getDateFormat()
 ```
 
 A return value looks like:
 ```typescript
-{
+const dateFormat: DateFormat = {
   endianness: DateEndianness.LittleEndian,
   separator: '/'
 }
@@ -43,14 +43,14 @@ The `endianness` property allows to know in what order the date components are p
 `getTimeFormat()` returns whether the clock is the 12-hour clock or 24-hour clock, and the separator of the time components.
 
 ```typescript
-import { getTimeFormat } from 'user-locale';
+import { getTimeFormat, TimeFormat } from 'user-locale';
 
 getTimeFormat()
 ```
 
 A return value looks like:
 ```typescript
-{
+const timeFormat: TimeFormat = {
   is24HourClock: true,
   separator: ':'
 }
