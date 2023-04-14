@@ -35,9 +35,9 @@ const dateFormat: DateFormat = {
 
 The `endianness` property allows to know in what order the date components are placed:
 
-- `BigEndian`: year, month, day
-- `LittleEndian`: day, month, year
-- `MiddleEndian`: month, day, year
+- `DateEndianness.BigEndian`: year, month, day
+- `DateEndianness.LittleEndian`: day, month, year
+- `DateEndianness.MiddleEndian`: month, day, year
 
 ### Time format
 
