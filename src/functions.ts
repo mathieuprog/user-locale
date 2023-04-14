@@ -3,6 +3,7 @@ import countryFirstDayOfWeekMap from './data/countryFirstDayOfWeekMap';
 import timeZoneCountryMap from './data/timeZoneCountryMap';
 import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
+import NumberFormat from './NumberFormat';
 
 export interface DateFormat {
   endianness: DateEndianness;
@@ -47,6 +48,54 @@ export function getPreferredLanguageTags(): string[] {
 
 export function getTimeZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
+export function getNumberFormat(locales: string[] = []): NumberFormat {
+  const parts = Intl.NumberFormat(locales).formatToParts(1000.01);
+
+  const defaultSeparators = {
+    thousands: ',',
+    decimal: '.'
+  };
+
+  const separators =
+    parts.reduce(
+      (separators, { type, value }) => {
+        switch (type) {
+          case 'group': return Object.assign(separators, { thousands: value });
+          case 'decimal': return Object.assign(separators, { decimal: value });
+        }
+        return separators;
+      },
+      defaultSeparators
+    );
+
+  const thousands = isSpaceCharacter(separators.thousands) ? ' ' : separators.thousands;
+
+  switch (thousands + separators.decimal) {
+    default:
+      return NumberFormat.CommaPeriod;
+
+    case '.,':
+      return NumberFormat.PeriodComma;
+
+    case ' ,':
+      return NumberFormat.SpaceComma;
+  }
+}
+
+function isSpaceCharacter(char: string): boolean {
+  const spaceCharacters: string[] = [
+    '\u0020', // Space (SP)
+    '\u00A0', // Non-breaking space (NBSP)
+    '\u2002', // En space
+    '\u2003', // Em space
+    '\u2009', // Thin space
+    '\u200A', // Hair space
+    '\u202F', // Narrow non-breaking space (NNBSP)
+  ];
+
+  return spaceCharacters.includes(char);
 }
 
 export function getDateFormat(locales: string[] = []): DateFormat {
