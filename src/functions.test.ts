@@ -4,10 +4,12 @@ import {
   doGuessCountry,
   getCountryFromLanguageTag,
   getDateFormat,
+  getNumberFormat,
   getTimeFormat
 } from './functions';
 import FirstDayOfWeek from './FirstDayOfWeek';
 import DateEndianness from './DateEndianness';
+import NumberFormat from './NumberFormat';
 
 test('guessCountry', () => {
   expect(doGuessCountry('Europe/Brussels', ['fr', 'fr-BE', 'en'])).toEqual(['BE']);
@@ -22,6 +24,13 @@ test('getCountryFromLanguageTag', () => {
   expect(getCountryFromLanguageTag('fr')).toBe(null);
   expect(getCountryFromLanguageTag('fr-BE-xx')).toBe('BE');
   expect(getCountryFromLanguageTag('fr-xx-BE')).toBe('BE');
+});
+
+test('getNumberFormat', () => {
+  expect(getNumberFormat(['fr-BE'])).toBe(NumberFormat.SpaceComma);
+  expect(getNumberFormat(['de-DE'])).toBe(NumberFormat.PeriodComma);
+  expect(getNumberFormat(['en-UK'])).toBe(NumberFormat.CommaPeriod);
+  expect(getNumberFormat(['en-US'])).toBe(NumberFormat.CommaPeriod);
 });
 
 test('getDateFormat', () => {
@@ -45,4 +54,3 @@ test('getFirstDayOfWeek', () => {
   expect(doGetFirstDayOfWeek(['EG'])).toBe(FirstDayOfWeek.Saturday);
   expect(doGetFirstDayOfWeek(['UNKNOWN'])).toBe(FirstDayOfWeek.Monday);
 });
-
