@@ -1,7 +1,7 @@
 import ColorScheme from './ColorScheme';
 import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
-import NumberFormat from './DateEndianness';
+import NumberFormat from './NumberFormat';
 import {
   DateFormat,
   getDateFormat,
