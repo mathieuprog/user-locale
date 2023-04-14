@@ -6,6 +6,7 @@ The functions allow to retrieve:
 
 * the date format;
 * the time format;
+* the number format;
 * the preferred language tags (en-US, en, …);
 * the time zone;
 * the guessed country (from the time zone and preferred language tags);
@@ -54,6 +55,23 @@ const timeFormat: TimeFormat = {
   is24HourClock: true,
   separator: ':'
 }
+```
+
+### Number format
+
+`getNumberFormat()` returns a value from the NumberFormat enum, which indicates the characters of the thousands grouping and the decimal separator.
+
+```typescript
+import { getNumberFormat, NumberFormat } from 'user-locale';
+
+getNumberFormat()
+```
+
+The possible returned values are:
+```typescript
+NumberFormat.CommaPeriod // e.g. for locale 'en-US'
+NumberFormat.PeriodComma // e.g. for locale 'de-DE'
+NumberFormat.SpaceComma // e.g. for locale 'fr-FR'
 ```
 
 ### Preferred language tags
