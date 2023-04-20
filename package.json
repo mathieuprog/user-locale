@@ -16,10 +16,10 @@
   "author": "Mathieu Decaffmeyer",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@tsconfig/node18": "^1.0.1",
-    "rollup": "^3.20.2",
+    "@tsconfig/node18": "^2.0.0",
+    "rollup": "^3.20.6",
     "typescript": "^5.0.4",
-    "vite": "^4.2.1",
+    "vite": "^4.3.0",
     "vitest": "^0.30.1"
   },
   "dependencies": {
