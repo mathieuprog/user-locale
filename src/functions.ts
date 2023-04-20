@@ -1,6 +1,7 @@
 import ColorScheme from './ColorScheme';
 import countryFirstDayOfWeekMap from './data/countryFirstDayOfWeekMap';
 import timeZoneCountryMap from './data/timeZoneCountryMap';
+import languageTagNameMap from './data/languageTagNameMap';
 import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
 import NumberFormat from './NumberFormat';
@@ -224,4 +225,12 @@ export function getColorScheme() {
   return (window.matchMedia('(prefers-color-scheme: dark)').matches)
     ? ColorScheme.Dark
     : ColorScheme.Light;
+}
+
+export function getNativeLanguageNames(filterLanguageTags?: string[]) {
+  if (!filterLanguageTags) {
+    return languageTagNameMap;
+  }
+
+  return languageTagNameMap.filter(({ tag }) => filterLanguageTags.includes(tag));
 }
