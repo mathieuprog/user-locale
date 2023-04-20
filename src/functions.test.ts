@@ -4,6 +4,7 @@ import {
   doGuessCountryCode,
   getCountryCodeFromLanguageTag,
   getDateFormat,
+  getNativeLanguageNames,
   getNumberFormat,
   getTimeFormat
 } from './functions';
@@ -53,4 +54,8 @@ test('getFirstDayOfWeek', () => {
   expect(doGetFirstDayOfWeek(['US'])).toBe(FirstDayOfWeek.Sunday);
   expect(doGetFirstDayOfWeek(['EG'])).toBe(FirstDayOfWeek.Saturday);
   expect(doGetFirstDayOfWeek(['UNKNOWN'])).toBe(FirstDayOfWeek.Monday);
+});
+
+test('getNativeLanguageNames', () => {
+  expect(getNativeLanguageNames(['nl', 'fr'])).toEqual([{ tag: "fr", name: "Français" }, { tag: "nl", name: "Nederlands" }]);
 });
