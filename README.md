@@ -84,6 +84,22 @@ import { getPreferredLanguageTags } from 'user-locale';
 getPreferredLanguageTags() // ['en-US', 'en']
 ```
 
+`user-locale` includes a convenient utility function, `getNativeLanguageNames()`, which returns an array of objects containing language names and their corresponding tags. Each language name is written in its native language.
+
+```typescript
+import { getNativeLanguageNames } from 'user-locale';
+
+getNativeLanguageNames()
+```
+
+You can optionally provide a list of specific language tags to filter the results:
+
+```typescript
+import { getNativeLanguageNames } from 'user-locale';
+
+getNativeLanguageNames('fr', 'en') // [{ "tag": "en", "name": "English" }, { "tag": "fr", "name": "Français" }]
+```
+
 ### Time zone
 
 `getTimeZone` returns the time zone.
