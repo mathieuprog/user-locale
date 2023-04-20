@@ -4,9 +4,10 @@ import FirstDayOfWeek from './FirstDayOfWeek';
 import NumberFormat from './NumberFormat';
 import {
   DateFormat,
+  getColorScheme,
   getDateFormat,
   getFirstDayOfWeek,
-  getColorScheme,
+  getNativeLanguageNames,
   getNumberFormat,
   getPreferredLanguageTags,
   getTimeFormat,
@@ -21,9 +22,10 @@ export {
   DateFormat,
   FirstDayOfWeek,
   getColorScheme,
-  getNumberFormat,
   getDateFormat,
   getFirstDayOfWeek,
+  getNativeLanguageNames,
+  getNumberFormat,
   getPreferredLanguageTags,
   getTimeFormat,
   getTimeZone,
