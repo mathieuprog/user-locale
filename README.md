@@ -96,12 +96,12 @@ getTimeZone() // 'Asia/Bangkok'
 
 ### Country
 
-`guessCountry` guesses the country from the time zone and preferred language tags.
+`guessCountryCode` guesses the country from the time zone and preferred language tags.
 
 ```typescript
-import { guessCountry } from 'user-locale';
+import { guessCountryCode } from 'user-locale';
 
-guessCountry() // ['KH', 'LA', 'TH', 'VN']
+guessCountryCode() // ['KH', 'LA', 'TH', 'VN']
 ```
 
 The function returns an array of possible countries.

@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest';
 import {
   doGetFirstDayOfWeek,
-  doGuessCountry,
-  getCountryFromLanguageTag,
+  doGuessCountryCode,
+  getCountryCodeFromLanguageTag,
   getDateFormat,
   getNumberFormat,
   getTimeFormat
@@ -11,19 +11,19 @@ import FirstDayOfWeek from './FirstDayOfWeek';
 import DateEndianness from './DateEndianness';
 import NumberFormat from './NumberFormat';
 
-test('guessCountry', () => {
-  expect(doGuessCountry('Europe/Brussels', ['fr', 'fr-BE', 'en'])).toEqual(['BE']);
-  expect(doGuessCountry('Europe/Brussels', ['en'])).toEqual(['BE']);
-  expect(doGuessCountry('Europe/Brussels', [])).toEqual(['BE']);
-  expect(doGuessCountry('Asia/Bangkok', ['th', 'th-TH', 'en'])).toEqual(['TH']);
-  expect(doGuessCountry('Asia/Bangkok', ['th', 'en'])).toEqual(['KH', 'LA', 'TH', 'VN']);
+test('guessCountryCode', () => {
+  expect(doGuessCountryCode('Europe/Brussels', ['fr', 'fr-BE', 'en'])).toEqual(['BE']);
+  expect(doGuessCountryCode('Europe/Brussels', ['en'])).toEqual(['BE']);
+  expect(doGuessCountryCode('Europe/Brussels', [])).toEqual(['BE']);
+  expect(doGuessCountryCode('Asia/Bangkok', ['th', 'th-TH', 'en'])).toEqual(['TH']);
+  expect(doGuessCountryCode('Asia/Bangkok', ['th', 'en'])).toEqual(['KH', 'LA', 'TH', 'VN']);
 });
 
-test('getCountryFromLanguageTag', () => {
-  expect(getCountryFromLanguageTag('fr-BE')).toBe('BE');
-  expect(getCountryFromLanguageTag('fr')).toBe(null);
-  expect(getCountryFromLanguageTag('fr-BE-xx')).toBe('BE');
-  expect(getCountryFromLanguageTag('fr-xx-BE')).toBe('BE');
+test('getCountryCodeFromLanguageTag', () => {
+  expect(getCountryCodeFromLanguageTag('fr-BE')).toBe('BE');
+  expect(getCountryCodeFromLanguageTag('fr')).toBe(null);
+  expect(getCountryCodeFromLanguageTag('fr-BE-xx')).toBe('BE');
+  expect(getCountryCodeFromLanguageTag('fr-xx-BE')).toBe('BE');
 });
 
 test('getNumberFormat', () => {

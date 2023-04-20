@@ -15,16 +15,16 @@ export interface TimeFormat {
   separator: string;
 };
 
-export function guessCountry(): string[] {
-  return doGuessCountry(getTimeZone(), getPreferredLanguageTags());
+export function guessCountryCode(): string[] {
+  return doGuessCountryCode(getTimeZone(), getPreferredLanguageTags());
 }
 
-export function doGuessCountry(userTimeZone: string, languageTags: string[]): string[] {
+export function doGuessCountryCode(userTimeZone: string, languageTags: string[]): string[] {
   const countryIsoCodesFromTimeZone = (userTimeZone) ? timeZoneCountryMap[userTimeZone] : [];
 
   const countryIsoCodesFromLanguageTags =
     languageTags
-      .map((tag) => getCountryFromLanguageTag(tag))
+      .map((tag) => getCountryCodeFromLanguageTag(tag))
       .filter((country) => country);
 
   const intersection = countryIsoCodesFromTimeZone.filter((countryIsoCode) => countryIsoCodesFromLanguageTags.includes(countryIsoCode));
@@ -34,7 +34,7 @@ export function doGuessCountry(userTimeZone: string, languageTags: string[]): st
     : countryIsoCodesFromTimeZone;
 }
 
-export function getCountryFromLanguageTag(languageTag: string): string | null {
+export function getCountryCodeFromLanguageTag(languageTag: string): string | null {
   return languageTag.split('-').find((tag) => tag === tag.toUpperCase() && tag.length === 2) || null;
 }
 
@@ -192,7 +192,7 @@ function doGetTimeFormat(timeString: string) {
 }
 
 export function getFirstDayOfWeek(): FirstDayOfWeek {
-  return doGetFirstDayOfWeek(guessCountry());
+  return doGetFirstDayOfWeek(guessCountryCode());
 }
 
 export function doGetFirstDayOfWeek(countries: string[]): FirstDayOfWeek {

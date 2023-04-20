@@ -11,7 +11,7 @@ import {
   getPreferredLanguageTags,
   getTimeFormat,
   getTimeZone,
-  guessCountry,
+  guessCountryCode,
   TimeFormat
 } from './functions';
 
@@ -27,7 +27,7 @@ export {
   getPreferredLanguageTags,
   getTimeFormat,
   getTimeZone,
-  guessCountry,
+  guessCountryCode,
   NumberFormat,
   TimeFormat
 }
