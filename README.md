@@ -146,6 +146,22 @@ import { ColorScheme, getColorScheme } from 'user-locale';
 getColorScheme() // ColorScheme.Dark
 ```
 
+### Utility functions
+
+```typescript
+import { dateFormatter, dateTimeFormatter, timeFormatter, numberFormatter } from 'user-locale';
+
+numberFormatter(NumberFormat.PeriodComma)(1000.01) // '1.000,01'
+
+dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' })(Temporal.PlainDate.from('2023-09-02')) // '02/09/2023'
+
+timeFormatter({ is24HourClock: true, separator: ':' }, { precision: 'minute' })(Temporal.PlainTime.from('13:30:05')) // '13:30'
+
+const dateFormatter_ = dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' })
+const timeFormatter_ = timeFormatter({ is24HourClock: false, separator: ':' }, { precision: 'second', omitZeroUnits: true })
+dateTimeFormatter(dateFormatter_, timeFormatter_)(Temporal.PlainDateTime.from('2023-09-02 00:00:00')) // '02/09/2023 12 AM'
+```
+
 ## Install
 
 You can get `user-locale` via [npm](http://npmjs.com).
