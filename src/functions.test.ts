@@ -2,6 +2,7 @@ import { expect, test } from 'vitest';
 import {
   doGetFirstDayOfWeek,
   doGuessCountryCode,
+  numberFormatter,
   getCountryCodeFromLanguageTag,
   getDateFormat,
   getNativeLanguageNames,
@@ -58,4 +59,8 @@ test('getFirstDayOfWeek', () => {
 
 test('getNativeLanguageNames', () => {
   expect(getNativeLanguageNames(['nl', 'fr'])).toEqual([{ tag: "fr", name: "Français" }, { tag: "nl", name: "Nederlands" }]);
+});
+
+test('numberFormatter', () => {
+  expect(numberFormatter(NumberFormat.PeriodComma)(1000.01)).toBe('1.000,01');
 });
