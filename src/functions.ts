@@ -322,3 +322,12 @@ export function timeFormatter(timeFormat: TimeFormat, options: TimeFormatterOpti
     return string;
   };
 }
+
+export function dateTimeFormatter(
+  dateFormatter: (dateTime: Temporal.PlainDateTime) => string,
+  timeFormatter: (dateTime: Temporal.PlainDateTime) => string,
+) {
+  return (dateTime: Temporal.PlainDateTime) => {
+    return dateFormatter(dateTime) + ' ' + timeFormatter(dateTime);
+  };
+}
