@@ -13,7 +13,8 @@ import {
   getTimeFormat,
   getTimeZone,
   guessCountryCode,
-  TimeFormat
+  TimeFormat,
+  numberFormatter
 } from './functions';
 
 export {
@@ -31,5 +32,6 @@ export {
   getTimeZone,
   guessCountryCode,
   NumberFormat,
-  TimeFormat
+  TimeFormat,
+  numberFormatter
 }
