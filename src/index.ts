@@ -14,7 +14,8 @@ import {
   getTimeZone,
   guessCountryCode,
   TimeFormat,
-  numberFormatter
+  numberFormatter,
+  dateFormatter,
 } from './functions';
 
 export {
@@ -33,5 +34,6 @@ export {
   guessCountryCode,
   NumberFormat,
   TimeFormat,
-  numberFormatter
+  numberFormatter,
+  dateFormatter
 }
