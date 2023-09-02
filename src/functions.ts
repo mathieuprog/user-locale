@@ -1,3 +1,4 @@
+import { Temporal } from '@js-temporal/polyfill';
 import ColorScheme from './ColorScheme';
 import countryFirstDayOfWeekMap from './data/countryFirstDayOfWeekMap';
 import timeZoneCountryMap from './data/timeZoneCountryMap';
@@ -8,7 +9,7 @@ import NumberFormat from './NumberFormat';
 
 export interface DateFormat {
   endianness: DateEndianness;
-  separator: string;
+  separator?: string;
 };
 
 export interface TimeFormat {
@@ -245,6 +246,23 @@ export function numberFormatter(numberFormat: NumberFormat) {
 
       case NumberFormat.SpaceComma:
         return Intl.NumberFormat('fr-FR', options).format(number);
+    }
+  };
+}
+export function dateFormatter(dateFormat: DateFormat) {
+  return (date: Temporal.PlainDate | Temporal.PlainDateTime) => {
+    const day = String(date.day).padStart(2, '0');
+    const month = String(date.month).padStart(2, '0');
+
+    switch (dateFormat.endianness) {
+      case DateEndianness.LittleEndian:
+        return [day, month, date.year].join(dateFormat.separator ?? '/');
+
+      case DateEndianness.MiddleEndian:
+        return [month, day, date.year].join(dateFormat.separator ?? '/');
+
+      case DateEndianness.BigEndian:
+        return [date.year, month, day].join(dateFormat.separator ?? '-');
     }
   };
 }
