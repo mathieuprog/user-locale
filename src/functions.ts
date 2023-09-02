@@ -234,3 +234,17 @@ export function getNativeLanguageNames(filterLanguageTags?: string[]) {
 
   return languageTagNameMap.filter(({ tag }) => filterLanguageTags.includes(tag));
 }
+export function numberFormatter(numberFormat: NumberFormat) {
+  return (number: number, options: { [key: string]: unknown } = {}) => {
+    switch (numberFormat) {
+      case NumberFormat.CommaPeriod:
+        return Intl.NumberFormat('en-US', options).format(number);
+
+      case NumberFormat.PeriodComma:
+        return Intl.NumberFormat('de-DE', options).format(number);
+
+      case NumberFormat.SpaceComma:
+        return Intl.NumberFormat('fr-FR', options).format(number);
+    }
+  };
+}
