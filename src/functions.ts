@@ -14,7 +14,7 @@ export interface DateFormat {
 
 export interface TimeFormat {
   is24HourClock: boolean;
-  separator: string;
+  separator?: string;
 };
 
 export function guessCountryCode(): string[] {
@@ -235,6 +235,7 @@ export function getNativeLanguageNames(filterLanguageTags?: string[]) {
 
   return languageTagNameMap.filter(({ tag }) => filterLanguageTags.includes(tag));
 }
+
 export function numberFormatter(numberFormat: NumberFormat) {
   return (number: number, options: { [key: string]: unknown } = {}) => {
     switch (numberFormat) {
@@ -249,6 +250,7 @@ export function numberFormatter(numberFormat: NumberFormat) {
     }
   };
 }
+
 export function dateFormatter(dateFormat: DateFormat) {
   return (date: Temporal.PlainDate | Temporal.PlainDateTime) => {
     const day = String(date.day).padStart(2, '0');
@@ -264,5 +266,59 @@ export function dateFormatter(dateFormat: DateFormat) {
       case DateEndianness.BigEndian:
         return [date.year, month, day].join(dateFormat.separator ?? '-');
     }
+  };
+}
+
+interface TimeFormatterOptions {
+  precision: 'minute' | 'second';
+  omitZeroUnits?: boolean;
+}
+
+export function timeFormatter(timeFormat: TimeFormat, options: TimeFormatterOptions) {
+  return (time: Temporal.PlainTime | Temporal.PlainDateTime) => {
+    let hour: string;
+
+    if (timeFormat.is24HourClock) {
+      hour = String(time.hour).padStart(2, '0');
+    } else {
+      if (time.hour === 24 || time.hour === 0) {
+        hour = '12'
+      } else if (time.hour > 12) {
+        hour = String(time.hour - 12);
+      } else {
+        hour = String(time.hour);
+      }
+    }
+
+    let minute = String(time.minute).padStart(2, '0');
+    let second = String(time.second).padStart(2, '0');
+
+    if (options.precision === 'minute') {
+      second = '';
+    }
+
+    if (options.omitZeroUnits) {
+      if (second === '00') {
+        second = '';
+      }
+
+      if (!second && minute === '00' && !timeFormat.is24HourClock) {
+        minute = '';
+      }
+    }
+
+    let string = [hour].concat([minute, second].filter((e) => e)).join(timeFormat.separator ?? ':');
+
+    if (!timeFormat.is24HourClock) {
+      if (time.hour === 24 || time.hour === 0) {
+        string += ' AM';
+      } else if (time.hour >= 12) {
+        string += ' PM';
+      } else {
+        string += ' AM';
+      }
+    }
+
+    return string;
   };
 }
