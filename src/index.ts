@@ -16,6 +16,7 @@ import {
   TimeFormat,
   numberFormatter,
   dateFormatter,
+  timeFormatter,
 } from './functions';
 
 export {
@@ -35,5 +36,6 @@ export {
   NumberFormat,
   TimeFormat,
   numberFormatter,
-  dateFormatter
+  dateFormatter,
+  timeFormatter,
 }
