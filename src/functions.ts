@@ -324,10 +324,10 @@ export function timeFormatter(timeFormat: TimeFormat, options: TimeFormatterOpti
 }
 
 export function dateTimeFormatter(
-  dateFormatter: (dateTime: Temporal.PlainDateTime) => string,
-  timeFormatter: (dateTime: Temporal.PlainDateTime) => string,
+  formatDate: (dateTime: Temporal.PlainDateTime) => string,
+  formatTime: (dateTime: Temporal.PlainDateTime) => string,
 ) {
   return (dateTime: Temporal.PlainDateTime) => {
-    return dateFormatter(dateTime) + ' ' + timeFormatter(dateTime);
+    return formatDate(dateTime) + ' ' + formatTime(dateTime);
   };
 }

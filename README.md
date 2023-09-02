@@ -157,9 +157,9 @@ dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' })(Tempo
 
 timeFormatter({ is24HourClock: true, separator: ':' }, { precision: 'minute' })(Temporal.PlainTime.from('13:30:05')) // '13:30'
 
-const dateFormatter_ = dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' })
-const timeFormatter_ = timeFormatter({ is24HourClock: false, separator: ':' }, { precision: 'second', omitZeroUnits: true })
-dateTimeFormatter(dateFormatter_, timeFormatter_)(Temporal.PlainDateTime.from('2023-09-02 00:00:00')) // '02/09/2023 12 AM'
+const formatDate = dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' })
+const formatTime = timeFormatter({ is24HourClock: false, separator: ':' }, { precision: 'second', omitZeroUnits: true })
+dateTimeFormatter(formatDate, formatTime)(Temporal.PlainDateTime.from('2023-09-02 00:00:00')) // '02/09/2023 12 AM'
 ```
 
 ## Install

@@ -108,8 +108,8 @@ test('timeFormatter', () => {
 });
 
 test('dateTimeFormatter', () => {
-  const dateFormatter_ = dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' });
-  const timeFormatter_ = timeFormatter({ is24HourClock: false, separator: ':' }, { precision: 'second', omitZeroUnits: true });
+  const formatDate = dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' });
+  const formatTime = timeFormatter({ is24HourClock: false, separator: ':' }, { precision: 'second', omitZeroUnits: true });
 
-  expect(dateTimeFormatter(dateFormatter_, timeFormatter_)(Temporal.PlainDateTime.from('2023-09-02 00:00:00'))).toEqual('02/09/2023 12 AM');
+  expect(dateTimeFormatter(formatDate, formatTime)(Temporal.PlainDateTime.from('2023-09-02 00:00:00'))).toEqual('02/09/2023 12 AM');
 });
