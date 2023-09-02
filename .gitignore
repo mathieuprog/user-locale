@@ -1,6 +1,8 @@
 /.idea/
 *.iml
 
+.lh
+
 /node_modules/
 /public/build/
 dist
