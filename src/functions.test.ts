@@ -1,8 +1,10 @@
 import { expect, test } from 'vitest';
+import { Temporal } from '@js-temporal/polyfill';
 import {
   doGetFirstDayOfWeek,
   doGuessCountryCode,
   dateFormatter,
+  timeFormatter,
   numberFormatter,
   getCountryCodeFromLanguageTag,
   getDateFormat,
@@ -73,4 +75,32 @@ test('dateFormatter', () => {
 
   expect(dateFormatter({ endianness: DateEndianness.LittleEndian })(Temporal.PlainDate.from('2023-09-02'))).toBe('02/09/2023');
   expect(dateFormatter({ endianness: DateEndianness.BigEndian })(Temporal.PlainDate.from('2023-09-02'))).toBe('2023-09-02');
+});
+
+test('timeFormatter', () => {
+  expect(timeFormatter({ is24HourClock: true }, { precision: 'second' })(Temporal.PlainTime.from('13:30:05'))).toEqual('13:30:05');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second' })(Temporal.PlainTime.from('13:30:05'))).toEqual('13.30.05');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'minute' })(Temporal.PlainTime.from('13:30:05'))).toEqual('13.30');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second' })(Temporal.PlainTime.from('03:30'))).toEqual('03.30.00');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'minute' })(Temporal.PlainTime.from('03:30'))).toEqual('03.30');
+
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second' })(Temporal.PlainTime.from('13:30'))).toEqual('1.30.00 PM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'minute' })(Temporal.PlainTime.from('13:30'))).toEqual('1.30 PM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second' })(Temporal.PlainTime.from('03:30'))).toEqual('3.30.00 AM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'minute' })(Temporal.PlainTime.from('03:30'))).toEqual('3.30 AM');
+
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second' })(Temporal.PlainTime.from('12:00'))).toEqual('12.00.00 PM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'minute' })(Temporal.PlainTime.from('00:00'))).toEqual('12.00 AM');
+
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('12:00:00'))).toEqual('12 PM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('00:00:00'))).toEqual('12 AM');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('13:00:00'))).toEqual('13.00');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('03:00:00'))).toEqual('03.00');
+
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('12:00:10'))).toEqual('12.00.10 PM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('00:00:10'))).toEqual('12.00.10 AM');
+  expect(timeFormatter({ is24HourClock: false, separator: '.' }, { precision: 'minute', omitZeroUnits: true })(Temporal.PlainTime.from('00:00:10'))).toEqual('12 AM');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('13:00:10'))).toEqual('13.00.10');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'minute', omitZeroUnits: true })(Temporal.PlainTime.from('13:00:10'))).toEqual('13.00');
+  expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('03:00:10'))).toEqual('03.00.10');
 });
