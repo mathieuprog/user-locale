@@ -5,6 +5,7 @@ import {
   doGuessCountryCode,
   dateFormatter,
   timeFormatter,
+  dateTimeFormatter,
   numberFormatter,
   getCountryCodeFromLanguageTag,
   getDateFormat,
@@ -103,4 +104,11 @@ test('timeFormatter', () => {
   expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('13:00:10'))).toEqual('13.00.10');
   expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'minute', omitZeroUnits: true })(Temporal.PlainTime.from('13:00:10'))).toEqual('13.00');
   expect(timeFormatter({ is24HourClock: true, separator: '.' }, { precision: 'second', omitZeroUnits: true })(Temporal.PlainTime.from('03:00:10'))).toEqual('03.00.10');
+});
+
+test('dateTimeFormatter', () => {
+  const dateFormatter_ = dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' });
+  const timeFormatter_ = timeFormatter({ is24HourClock: false, separator: ':' }, { precision: 'second', omitZeroUnits: true });
+
+  expect(dateTimeFormatter(dateFormatter_, timeFormatter_)(Temporal.PlainDateTime.from('2023-09-02 00:00:00'))).toEqual('02/09/2023 12 AM');
 });
