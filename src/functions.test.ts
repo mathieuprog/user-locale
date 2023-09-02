@@ -2,6 +2,7 @@ import { expect, test } from 'vitest';
 import {
   doGetFirstDayOfWeek,
   doGuessCountryCode,
+  dateFormatter,
   numberFormatter,
   getCountryCodeFromLanguageTag,
   getDateFormat,
@@ -63,4 +64,13 @@ test('getNativeLanguageNames', () => {
 
 test('numberFormatter', () => {
   expect(numberFormatter(NumberFormat.PeriodComma)(1000.01)).toBe('1.000,01');
+});
+test('dateFormatter', () => {
+  expect(dateFormatter({ endianness: DateEndianness.LittleEndian, separator: '/' })(Temporal.PlainDate.from('2023-09-02'))).toBe('02/09/2023');
+  expect(dateFormatter({ endianness: DateEndianness.MiddleEndian, separator: '.' })(Temporal.PlainDate.from('2023-09-02'))).toBe('09.02.2023');
+  expect(dateFormatter({ endianness: DateEndianness.BigEndian, separator: '-' })(Temporal.PlainDate.from('2023-09-02'))).toBe('2023-09-02');
+  expect(dateFormatter({ endianness: DateEndianness.BigEndian, separator: '-' })(Temporal.PlainDate.from('2023-09-02'))).toBe('2023-09-02');
+
+  expect(dateFormatter({ endianness: DateEndianness.LittleEndian })(Temporal.PlainDate.from('2023-09-02'))).toBe('02/09/2023');
+  expect(dateFormatter({ endianness: DateEndianness.BigEndian })(Temporal.PlainDate.from('2023-09-02'))).toBe('2023-09-02');
 });
