@@ -223,7 +223,7 @@ export function doGetFirstDayOfWeek(countries: string[]): FirstDayOfWeek {
 }
 
 export function getColorScheme() {
-  return (window.matchMedia('(prefers-color-scheme: dark)').matches)
+  return (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ? ColorScheme.Dark
     : ColorScheme.Light;
 }
