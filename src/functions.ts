@@ -237,16 +237,57 @@ export function getNativeLanguageNames(filterLanguageTags?: string[]) {
 }
 
 export function numberFormatter(numberFormat: NumberFormat) {
-  return (number: number, options: { [key: string]: unknown } = {}) => {
+  return (number: number | string, options: { [key: string]: unknown } = {}) => {
     switch (numberFormat) {
       case NumberFormat.CommaPeriod:
-        return Intl.NumberFormat('en-US', options).format(number);
+        return Intl.NumberFormat('en-US', options).format(Number(number));
 
       case NumberFormat.PeriodComma:
-        return Intl.NumberFormat('de-DE', options).format(number);
+        return Intl.NumberFormat('de-DE', options).format(Number(number));
 
       case NumberFormat.SpaceComma:
-        return Intl.NumberFormat('fr-FR', options).format(number);
+        return Intl.NumberFormat('fr-FR', options).format(Number(number));
+    }
+  };
+}
+
+export function numberParser(numberFormat: NumberFormat, options?: { allowThousandSeparator?: boolean, precision?: number }) {
+  const allowThousandSeparator = options?.allowThousandSeparator || false;
+
+  return (localizedNumberString: string) => {
+    localizedNumberString = localizedNumberString.trim();
+
+    switch (numberFormat) {
+      case NumberFormat.CommaPeriod:
+        return (
+          ((allowThousandSeparator) ? /^[0-9.,]+$/ : /^[0-9.]+$/).test(localizedNumberString)
+          && (localizedNumberString.match(/\./g) || []).length <= 1
+          && /^[^.]*(\.[^,]*)?$/.test(localizedNumberString)
+          && ((options?.precision) ? /^\d*(?:,\d{3})*(?:\.\d{2})?$/ : /^(?:\d*(\.\d+)*|\d*(?:,\d{3})*(?:\.\d*)?)$/).test(localizedNumberString)
+        )
+          ? Number(localizedNumberString.replace(/,/g, ''))
+          : null;
+
+      case NumberFormat.PeriodComma:
+        return (
+          ((allowThousandSeparator) ? /^[0-9.,]+$/ : /^[0-9,]+$/).test(localizedNumberString)
+          && (localizedNumberString.match(/,/g) || []).length <= 1
+          && /^[^,]*(,[^.]*)?$/.test(localizedNumberString)
+          && ((options?.precision) ? /^\d*(?:\.\d{3})*(?:,\d{2})?$/ : /^(?:\d*(,\d+)*|\d*(?:\.\d{3})*(?:,\d*)?)$/).test(localizedNumberString)
+        )
+          ? Number(localizedNumberString.replace(/\./g, '').replace(',', '.'))
+          : null;
+
+      case NumberFormat.SpaceComma: {
+        return (
+          ((allowThousandSeparator) ? /^[0-9, ]+$/ : /^[0-9,]+$/).test(localizedNumberString)
+          && (localizedNumberString.match(/,/g) || []).length <= 1
+          && /^[^,]*(\,[^ ]*)?$/.test(localizedNumberString)
+          && ((options?.precision) ? /^\d*(?:\ \d{3})*(?:,\d{2})?$/ : /^(?:\d*(,\d+)*|\d*(?:\ \d{3})*(?:,\d*)?)$/).test(localizedNumberString)
+        )
+          ? Number(localizedNumberString.replace(/ /g, '').replace(',', '.'))
+          : null;
+      }
     }
   };
 }
