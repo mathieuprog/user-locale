@@ -7,6 +7,7 @@ import {
   timeFormatter,
   dateTimeFormatter,
   numberFormatter,
+  numberParser,
   getCountryCodeFromLanguageTag,
   getDateFormat,
   getNativeLanguageNames,
@@ -67,6 +68,68 @@ test('getNativeLanguageNames', () => {
 
 test('numberFormatter', () => {
   expect(numberFormatter(NumberFormat.PeriodComma)(1000.01)).toBe('1.000,01');
+});
+
+test('numberParser', () => {
+  expect(numberParser(NumberFormat.PeriodComma)('1000,01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.PeriodComma)('1,000')).toBe(1);
+  expect(numberParser(NumberFormat.PeriodComma)('1.000,01')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma)('1.000')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma)('1,000.01')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma)('1000.01')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma)('1,000,01')).toBeNull();
+
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1000,01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1,000')).toBe(1);
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1.000,01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1.000.000,01')).toBe(1000000.01);
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1.000')).toBe(1000);
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1,000.01')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1000.01')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma, { allowThousandSeparator: true })('1,000,01')).toBeNull();
+
+  expect(numberParser(NumberFormat.PeriodComma, { precision: 2 })('1,000')).toBeNull();
+  expect(numberParser(NumberFormat.PeriodComma, { precision: 2 })('1,00')).toBe(1);
+
+  expect(numberParser(NumberFormat.CommaPeriod)('1000.01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.CommaPeriod)('1.000')).toBe(1);
+  expect(numberParser(NumberFormat.CommaPeriod)('1,000.01')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod)('1,000')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod)('1.000,01')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod)('1000,01')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod)('1.000.01')).toBeNull();
+
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1000.01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1.000')).toBe(1);
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1,000.01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1,000,000.01')).toBe(1000000.01);
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1,000')).toBe(1000);
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1.000,01')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1000,01')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod, { allowThousandSeparator: true })('1.000.01')).toBeNull();
+
+  expect(numberParser(NumberFormat.CommaPeriod, { precision: 2 })('1.000')).toBeNull();
+  expect(numberParser(NumberFormat.CommaPeriod, { precision: 2 })('1.00')).toBe(1);
+
+  expect(numberParser(NumberFormat.SpaceComma)('1000,01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.SpaceComma)('1,000')).toBe(1);
+  expect(numberParser(NumberFormat.SpaceComma)('1 000,01')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma)('1 000')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma)('1,000 01')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma)('1000 01')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma)('1,000,01')).toBeNull();
+
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1000,01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1,000')).toBe(1);
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1 000,01')).toBe(1000.01);
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1 000 000,01')).toBe(1000000.01);
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1 000')).toBe(1000);
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1,000 01')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1000 01')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma, { allowThousandSeparator: true })('1,000,01')).toBeNull();
+
+  expect(numberParser(NumberFormat.SpaceComma, { precision: 2 })('1,000')).toBeNull();
+  expect(numberParser(NumberFormat.SpaceComma, { precision: 2 })('1,00')).toBe(1);
 });
 
 test('dateFormatter', () => {
