@@ -251,10 +251,10 @@ export function numberFormatter(numberFormat: NumberFormat) {
   };
 }
 
-export function numberParser(numberFormat: NumberFormat, options?: { allowThousandSeparator?: boolean, precision?: number }) {
-  const allowThousandSeparator = options?.allowThousandSeparator || false;
+export function numberParser(numberFormat: NumberFormat) {
+  return (localizedNumberString: string, options?: { allowThousandSeparator?: boolean, precision?: number }) => {
+    const allowThousandSeparator = options?.allowThousandSeparator || false;
 
-  return (localizedNumberString: string) => {
     localizedNumberString = localizedNumberString.trim();
 
     switch (numberFormat) {
