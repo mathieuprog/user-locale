@@ -16,11 +16,11 @@
   "author": "Mathieu Decaffmeyer",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@tsconfig/node18": "^18.2.1",
-    "rollup": "^3.28.1",
+    "@tsconfig/node18": "^18.2.2",
+    "rollup": "^4.0.2",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.3"
+    "vite": "^4.4.11",
+    "vitest": "^0.34.6"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.4.4"
