@@ -15,6 +15,7 @@ import {
   guessCountryCode,
   TimeFormat,
   numberFormatter,
+  numberParser,
   dateFormatter,
   timeFormatter,
   dateTimeFormatter
@@ -37,6 +38,7 @@ export {
   NumberFormat,
   TimeFormat,
   numberFormatter,
+  numberParser,
   dateFormatter,
   timeFormatter,
   dateTimeFormatter
