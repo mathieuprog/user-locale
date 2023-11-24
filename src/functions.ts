@@ -1,11 +1,11 @@
 import { Temporal } from '@js-temporal/polyfill';
 import ColorScheme from './ColorScheme';
-import countryFirstDayOfWeekMap from './data/countryFirstDayOfWeekMap';
-import timeZoneCountryMap from './data/timeZoneCountryMap';
-import languageTagNameMap from './data/languageTagNameMap';
 import DateEndianness from './DateEndianness';
 import FirstDayOfWeek from './FirstDayOfWeek';
 import NumberFormat from './NumberFormat';
+import countryFirstDayOfWeekMap from './data/countryFirstDayOfWeekMap';
+import languageTagNameMap from './data/languageTagNameMap';
+import timeZoneCountryMap from './data/timeZoneCountryMap';
 
 export interface DateFormat {
   endianness: DateEndianness;
@@ -22,7 +22,7 @@ export function guessCountryCode(): string[] {
 }
 
 export function doGuessCountryCode(userTimeZone: string, languageTags: string[]): string[] {
-  const countryIsoCodesFromTimeZone = (userTimeZone) ? timeZoneCountryMap[userTimeZone] : [];
+  const countryIsoCodesFromTimeZone = (userTimeZone) ? (timeZoneCountryMap[userTimeZone] ?? []) : [];
 
   const countryIsoCodesFromLanguageTags =
     languageTags
