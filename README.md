@@ -124,7 +124,7 @@ The function returns an array of possible countries.
 It first gets the list of countries which use the user's time zone (for instance, "Asia/Bangkok" is used in Thailand, Vietnam, Laos and Cambodia),
 then filters out this list by any country code present in the preferred language tags (for instance, `['th', 'th-TH']` includes the country code of Thailand).
 
-If the function returns only a single element, the confidence of having the right country is pretty high.
+If the function returns only one element, it is fairly likely that the identified country is correct.
 
 ### First day of the week
 
