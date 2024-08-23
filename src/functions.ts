@@ -12,10 +12,11 @@ export interface DateFormat {
   separator?: string;
 };
 
-export interface TimeFormat {
-  is24HourClock: boolean;
-  separator?: string;
-};
+export type TimeFormat = 
+  | { is24HourClock?: true; hourCycle: 23; separator?: string }
+  | { is24HourClock?: false; hourCycle: 12; separator?: string }
+  | { is24HourClock: true; hourCycle?: 23; separator?: string }
+  | { is24HourClock: false; hourCycle?: 12; separator?: string };
 
 export function guessCountryCode(): string[] {
   return doGuessCountryCode(getTimeZone(), getPreferredLanguageTags());
@@ -176,9 +177,7 @@ export function getTimeFormat(locales: string[] = []): TimeFormat {
   return doGetTimeFormat(timeFormatString);
 }
 
-function doGetTimeFormat(timeString: string) {
-  const is24HourClock = new RegExp('hh').test(timeString);
-
+function doGetTimeFormat(timeString: string): TimeFormat {
   const separators = timeString.replaceAll(/[A-Za-z0-9]/g, '');
 
   const separator =
@@ -190,7 +189,9 @@ function doGetTimeFormat(timeString: string) {
           : ':'
       );
 
-  return { is24HourClock, separator };
+  return (new RegExp('hh').test(timeString))
+      ? { is24HourClock: true, hourCycle: 23, separator }
+      : { is24HourClock: false, hourCycle: 12, separator };
 }
 
 export function getFirstDayOfWeek(): FirstDayOfWeek {
@@ -319,7 +320,9 @@ export function timeFormatter(timeFormat: TimeFormat, options: TimeFormatterOpti
   return (time: Temporal.PlainTime | Temporal.PlainDateTime) => {
     let hour: string;
 
-    if (timeFormat.is24HourClock) {
+    const is24HourClock = timeFormat.is24HourClock ?? (timeFormat.hourCycle === 23);
+
+    if (is24HourClock) {
       hour = String(time.hour).padStart(2, '0');
     } else {
       if (time.hour === 24 || time.hour === 0) {
@@ -343,14 +346,14 @@ export function timeFormatter(timeFormat: TimeFormat, options: TimeFormatterOpti
         second = '';
       }
 
-      if (!second && minute === '00' && !timeFormat.is24HourClock) {
+      if (!second && minute === '00' && !is24HourClock) {
         minute = '';
       }
     }
 
     let string = [hour].concat([minute, second].filter((e) => e)).join(timeFormat.separator ?? ':');
 
-    if (!timeFormat.is24HourClock) {
+    if (!is24HourClock) {
       if (time.hour === 24 || time.hour === 0) {
         string += ' AM';
       } else if (time.hour >= 12) {
